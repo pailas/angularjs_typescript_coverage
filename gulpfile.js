@@ -8,18 +8,20 @@ var gulp = require('gulp'),
     typescript = require('gulp-typescript'),
     cleanCompiledTypeScript = require('gulp-clean-compiled-typescript');
 
-gulp.task('clean-ts', function () {
+    //Clean all temporary files or folders generated
+gulp.task('cleanTS', function () {
     return gulp.src('./src/**/*.ts')
         .pipe(cleanCompiledTypeScript());
 });
 
-gulp.task('clean', ['clean-ts'], function () {
-    return gulp.src('./src/templates.js', {
+gulp.task('clean', ['cleanTS'], function () {
+    return gulp.src(['coverage', './src/templates.js'], {
             read: false
         })
         .pipe(clean());
 });
 
+//TemplateCache all *.html pages
 gulp.task('templates', ['clean'], function () {
     return gulp.src('./src/**/*.html')
         .pipe(templateCache('templates.js', {
@@ -30,6 +32,7 @@ gulp.task('templates', ['clean'], function () {
         .pipe(gulp.dest('src'));
 });
 
+//Compile Typescript code to JS
 gulp.task('compile', ['clean'], function () {
     let tsProject = typescript.createProject('tsconfig.json');
     return gulp.src('./src/**/*.ts')
@@ -42,6 +45,7 @@ gulp.task('compile', ['clean'], function () {
         .pipe(gulp.dest('./src'));
 });
 
+//Run unit tests on Headless browser and keep watching
 gulp.task('unit:test', ['build'], function (done) {
     return new karma.Server({
             configFile: __dirname + '/karma.conf.js',
@@ -55,13 +59,14 @@ gulp.task('unit:test', ['build'], function (done) {
         .start();
 });
 
+//Run unit tests on chrome and ready for debugging and keep watching
 gulp.task('test:debug', ['build'], function (done) {
     return new karma.Server({
             configFile: __dirname + '/karma.conf.js',
             //action: 'run',
             singleRun: false,
             autoWatch: true,
-            browsers: ['Chrome']
+            browsers: ['Chrome', 'karma-remap-istanbul']
         }, done)
         .on('error', function (err) {
             throw err;
@@ -69,11 +74,12 @@ gulp.task('test:debug', ['build'], function (done) {
         .start();
 });
 
+//Run tests for one time and generate coverage
 gulp.task('unit:coverage', ['build'], function (done) {
     return new karma.Server({
             configFile: __dirname + '/karma.conf.js',
             // action: 'run',
-            reporters: ['dots', 'coverage'],
+            reporters: ['dots', 'coverage', 'karma-remap-istanbul'],
         }, done)
         .on('error', function (err) {
             throw err;
@@ -81,21 +87,22 @@ gulp.task('unit:coverage', ['build'], function (done) {
         .start();
 });
 
+//To open already generated coverage report
 gulp.task('open:coverage', function () {
-    return gulp.src('./coverage/view/index.html')
+    return gulp.src('./coverage/html/index.html')
         .pipe(open());
 });
 
+//Run coverage once and open the report immediately
 gulp.task('coverage', ['unit:coverage'], function () {
-    return gulp.src('./coverage/view/index.html')
+    return gulp.src('./coverage/html/index.html')
         .pipe(open());
 });
 
+//Build task to clean the temp folders, generate templates and compile TS to JS
 gulp.task('build', ['clean', 'templates', 'compile']);
 
-gulp.task('default', function () {
-    gulp.start('coverage');
-});
+gulp.task('default', ['coverage', 'clean']);
 
 gulp.task('test', function () {
     gulp.start('unit:test');

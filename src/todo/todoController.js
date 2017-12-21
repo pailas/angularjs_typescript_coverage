@@ -1,7 +1,0 @@
-angular.module('myTodoApp')
-    .controller('todoController', ['$scope', 'todoService', function ($scope, todoService) {
-        var vm = this;
-        vm.todos = todoService.getTodos();
-    }]);
-
-//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInRvZG8vdG9kb0NvbnRyb2xsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxDQUFDLE1BQU0sQ0FBQyxXQUFXLENBQUM7S0FDMUIsVUFBVSxDQUFDLGdCQUFnQixFQUFFLENBQUMsUUFBUSxFQUFFLGFBQWEsRUFBRSxVQUFVLE1BQU0sRUFBRSxXQUFXO1FBQ25GLElBQUksRUFBRSxHQUFHLElBQUksQ0FBQztRQUVkLEVBQUUsQ0FBQyxLQUFLLEdBQUcsV0FBVyxDQUFDLFFBQVEsRUFBRSxDQUFDO0lBQ3BDLENBQUMsQ0FBQyxDQUFDLENBQUMiLCJmaWxlIjoidG9kby90b2RvQ29udHJvbGxlci5qcyIsInNvdXJjZXNDb250ZW50IjpbIlxyXG5hbmd1bGFyLm1vZHVsZSgnbXlUb2RvQXBwJylcclxuLmNvbnRyb2xsZXIoJ3RvZG9Db250cm9sbGVyJywgWyckc2NvcGUnLCAndG9kb1NlcnZpY2UnLCBmdW5jdGlvbiAoJHNjb3BlLCB0b2RvU2VydmljZSkge1xyXG5cdFx0dmFyIHZtID0gdGhpcztcclxuXHJcblx0XHR2bS50b2RvcyA9IHRvZG9TZXJ2aWNlLmdldFRvZG9zKCk7XHJcbn1dKTsiXSwic291cmNlUm9vdCI6IkM6XFxzcmNcXHRlc3RcXG5nVGVzdF90cyJ9

@@ -19,45 +19,53 @@ module.exports = function(config) {
       'node_modules/angular/angular.js',
       'node_modules/angular-mocks/angular-mocks.js',
       'src/**/*.js',
-      'src/**/*.ts',
       'tests/**/*Spec.js'
     ],
 
-
     // list of files to exclude
     exclude: [
+      'src/templates.js',
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'src/**/*.ts': ['coverage']
+      'src/**/*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'karma-remap-istanbul'],
 
     plugins: [
       'karma-jasmine',
       'karma-chrome-launcher',
-      'karma-coverage'
+      'karma-coverage',
+      'karma-remap-istanbul'
     ],
     
     coverageReporter: {
       includeAllSources: true,
       dir: 'coverage/',
       reporters: [
-        { type: "html", subdir: "view" },
         { type: 'text-summary' },
-        { type: 'cobertura', subdir: 'xml', file: 'coverage.xml' },
-        { type: 'lcov', subdir: 'lcov' },
+        { type: 'json', subdir: 'json', file: 'coverage.json' }
       ]
     },
 
+    remapIstanbulReporter: {
+      src: 'coverage/json/coverage.json',
+      exclude:"templates.js",
+      reports: {
+        lcovonly: 'coverage/lcov/lcov.info',
+        html: 'coverage/html'
+      },
+      timeoutNotCreated: 5000, // default value
+      timeoutNoMoreFiles: 1000 // default value
+    },
     // web server port
     port: 9876,
 
