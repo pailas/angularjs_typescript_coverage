@@ -1,5 +1,5 @@
-# angularjs-gulp-karma-isthanbul
-Angularjs 1.6.x with Gulp Karma Isthanbul
+# angularjs-typescript-gulp-karma-isthanbul
+Angularjs 1.6.x with Typescript Gulp Karma Isthanbul
 
 The sample code doesn't have UI. It has a set of files with some AngularJS code and corresponding test files.
 
@@ -10,3 +10,4 @@ To run the sample, open a command prompt and execute the following commands:
  -  yarn add -g karma-cli (to install karma cli globally)
  -  gulp test (to start karma and run tests)
  -  gulp coverage (to run tests once and open coverage)
+ -  gulp (default) to build and run tests
