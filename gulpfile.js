@@ -38,7 +38,7 @@ gulp.task('compile', ['clean'], function () {
     return gulp.src('./src/**/*.ts')
         .pipe(sourcemaps.init())
         .pipe(tsProject())
-        .js.pipe(replace(/(}\)\()(.*\|\|.*;)/g, '$1/* istanbul ignore next */$2'))
+        .js
         .pipe(sourcemaps.write({
             sourceRoot: __dirname
         }))
